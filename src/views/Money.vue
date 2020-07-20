@@ -1,6 +1,7 @@
 <template>
   <div>
    Money.vue
+    测试webstorm git gui
     <Nav/>
   </div>
 </template>
