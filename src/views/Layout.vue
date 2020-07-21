@@ -1,17 +1,15 @@
 <template>
-  <div>
-    <layout>
-      <p>Money.vue</p>
-    </layout>
+  <div class="nav-wrapper">
+    <div class="content">
+      <slot/>
+    </div>
+    <Nav/>
   </div>
-
 </template>
 
 <script lang="ts">
-  import Layout from '@/views/Layout.vue';
   export default {
-    name: 'Money',
-    components: {Layout},
+    name: 'Layout'
   };
 </script>
 
@@ -22,8 +20,7 @@
     display: flex;
     flex-direction: column;
   }
-
-  .content {
+  .content{
     flex-grow: 1;
     overflow: auto;
   }
