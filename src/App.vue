@@ -39,6 +39,9 @@
   body {
     line-height: 1.5;
   }
+  a{
+    color: inherit;
+  }
 
   #app {
     font-family: Avenir, Helvetica, Arial, sans-serif;
