@@ -2,14 +2,17 @@
   <nav>
     <router-link to="/money" class="item" active-class="selected">
       <Icon name="money"/>
+      <Icon name="money_backup"/>
       记账
     </router-link>
     <router-link to="/labels" class="item" active-class="selected">
       <Icon name="labels"/>
+      <Icon name="labels_backup"/>
       标签
     </router-link>
     <router-link to="/statistics" class="item" active-class="selected">
       <Icon name="statistics"/>
+      <Icon name="statistics_backup"/>
       统计
     </router-link>
   </nav>
@@ -18,8 +21,8 @@
 <script lang="ts">
   const importAll = (requireContext: __WebpackModuleApi.RequireContext) => requireContext.keys().forEach(requireContext);
   try { importAll(require.context('../assets/icons', true, /\.svg$/)); } catch (error) { console.log(error); }
-  // import money from '@/assets/icons/money.svg';
-  // import labels from '@/assets/icons/labels.svg';
+  // import money from '@/assets/icons/money_backup.svg';
+  // import labels from '@/assets/icons/labels_backup.svg';
 
   // console.log(money);
   // console.log(labels)
