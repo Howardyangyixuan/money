@@ -32,6 +32,7 @@
 </script>
 
 <style lang="scss" scoped>
+  @import "~@/assets/style/helper.scss";
   nav {
     font-size: 14px;
     flex-direction: row;
@@ -55,7 +56,7 @@
     }
 
     > .item.selected {
-      color: grey
+      color: $color-highlight
     }
   }
 
