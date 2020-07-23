@@ -2,17 +2,17 @@
   <nav>
     <router-link to="/money" class="item" active-class="selected">
       <Icon name="money"/>
-      <Icon name="money_backup"/>
+<!--      <Icon name="money_backup"/>-->
       记账
     </router-link>
     <router-link to="/labels" class="item" active-class="selected">
       <Icon name="labels"/>
-      <Icon name="labels_backup"/>
+<!--      <Icon name="labels_backup"/>-->
       标签
     </router-link>
     <router-link to="/statistics" class="item" active-class="selected">
       <Icon name="statistics"/>
-      <Icon name="statistics_backup"/>
+<!--      <Icon name="statistics_backup"/>-->
       统计
     </router-link>
   </nav>
@@ -34,9 +34,10 @@
 <style lang="scss" scoped>
   @import "~@/assets/style/helper.scss";
   nav {
+    @extend %outerShadow;
     font-size: 14px;
+    padding-top: 5px;
     flex-direction: row;
-    box-shadow: 0 0 3px rgba(0, 0, 0, 0.25);
     /*border: 1px solid red;*/
     display: flex;
     justify-content: space-around;
@@ -49,8 +50,8 @@
       flex-direction: column;
 
       .icon {
-        height: 32px;
-        width: 32px;
+        height: 5.5vh;
+        width: 5.5vh;
       }
 
     }
