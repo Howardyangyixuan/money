@@ -2,35 +2,9 @@
   <div class="tags">
     <div class="current">
       <ul>
-        <li>衣</li>
-        <li>食1</li>
-        <li>住</li>
-        <li>行</li>
-        <li>衣</li>
-        <li>食</li>
-        <li>住</li>
-        <li>行i12</li>
-        <li>衣</li>
-        <li>食</li>
-        <li>住</li>
-        <li>行</li>
-        <li>衣</li>
-        <li>食</li>
-        <li>住</li>
-        <li>行</li>
-        <li>衣</li>
-        <li>食</li>
-        <li>食</li>
-        <li>住</li>
-        <li>行</li>
-        <li>衣</li>
-        <li>食</li>
-        <li>住</li>
-        <li>行</li>
-        <li>衣</li>
-        <li>食</li>
-        <li>住</li>
-        <li>行</li>
+        <li v-for="tag in dataSource" :key="tag"
+            :class="{selected: selectedTags.indexOf(tag)>=0}" @click="toggle(tag)">{{tag}}
+        </li>
       </ul>
     </div>
     <div class="new">
@@ -40,9 +14,23 @@
 </template>
 
 <script lang="ts">
-  export default {
-    name: 'Tags'
-  };
+  import Vue from 'vue';
+  import {Component, Prop} from 'vue-property-decorator';
+
+  @Component
+  export default class Tags extends Vue {
+    @Prop(Array) dataSource: string[] | undefined;
+    selectedTags: string[] = [];
+
+    toggle(tag: string) {
+      const index = this.selectedTags.indexOf(tag);
+      if (index >= 0) {
+        this.selectedTags.splice(index, 1);
+      } else {
+        this.selectedTags.push(tag);
+      }
+    }
+  }
 </script>
 
 <style lang="scss" scoped>
@@ -54,7 +42,11 @@
     align-items: flex-start;
     justify-content: flex-end;
     margin: 16px;
-    > .current::-webkit-scrollbar { display:none; }
+
+    > .current::-webkit-scrollbar {
+      display: none;
+    }
+
     > .current {
       overflow: scroll;
       max-height: 16vh;
@@ -68,15 +60,21 @@
       }
 
       > ul > li {
-        background: grey;
+        $bg: #d9d9d9;
+        background: $bg;
         $h: 3.6vh;
         height: $h;
         line-height: $h;
         border-radius: $h/2;
-        color: white;
+        color: black;
         padding: 0 16px;
         margin-right: 12px;
         margin-top: 4px;
+
+        &.selected {
+          background: darken($bg, 50%);
+          color: white;
+        }
       }
     }
 
