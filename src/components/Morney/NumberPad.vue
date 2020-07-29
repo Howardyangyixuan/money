@@ -49,7 +49,7 @@
     }
 
     clear() {
-      this.output = '';
+      this.output = '0';
     }
 
     ok() {

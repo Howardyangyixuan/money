@@ -54,7 +54,7 @@
     align-items: flex-start;
     justify-content: flex-end;
     margin: 16px;
-
+    > .current::-webkit-scrollbar { display:none; }
     > .current {
       overflow: scroll;
       max-height: 16vh;
@@ -64,7 +64,7 @@
         /*flex-direction: column-reverse;*/
         /*justify-content:left;*/
         flex-wrap: wrap-reverse;
-        overflow: scroll;
+        /*overflow: scroll;*/
       }
 
       > ul > li {
