@@ -3,7 +3,7 @@
     <layout class-prefix="layout">
       <Tags/>
       <Notes/>
-      <Types/>
+      <Types prop-a="123"/>
       <NumberPad/>
     </layout>
   </div>
