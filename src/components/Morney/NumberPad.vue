@@ -53,7 +53,7 @@
     }
 
     ok() {
-      return;
+      this.$emit('update:value', this.output);
     }
   }
 </script>
