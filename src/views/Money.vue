@@ -2,7 +2,7 @@
   <div>
     <layout class-prefix="layout">
       <Tags :data-source.sync='tags' @update:value="onUpdateTags"/>
-      <Notes file-name="备注" placeholder="请添加备注"  @update:value="onUpdateNotes"/>
+      <FormItem file-name="备注" placeholder="请添加备注"  @update:value="onUpdateNotes"/>
       <!--      <Types :value='record.type' @update:value="onUpdateType"/>-->
       <Types :value.sync="record.type"/>
       <!--      <NumberPad @update:value="onUpdateAmount"/>-->
@@ -17,14 +17,14 @@
   import {Component, Watch} from 'vue-property-decorator';
   import NumberPad from '@/components/Money/NumberPad.vue';
   import Tags from '@/components/Money/Tags.vue';
-  import Notes from '@/components/Money/Notes.vue';
+  import FormItem from '@/components/Money/FormItem.vue';
   import Types from '@/components/Money/Types.vue';
   import recodeListModel from '@/models/recodeListModel';
 
   @Component(
     {
       components: {
-        Types, Notes, Tags, NumberPad,
+        Types, FormItem, Tags, NumberPad,
       },
     }
   )
