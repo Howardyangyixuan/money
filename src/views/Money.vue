@@ -20,7 +20,7 @@
   import Tags from '@/components/Morney/Tags.vue';
   import Notes from '@/components/Morney/Notes.vue';
   import Types from '@/components/Morney/Types.vue';
-  import model from '@/model';
+  import recodeListModel from '@/models/recodeListModel';
 
   @Component(
     {
@@ -31,8 +31,7 @@
   )
   export default class Money extends Vue {
     name = 'Money';
-    tags = ['衣', '食', '住', '行', 'piao'];
-    recordList: RecordItem[] = model.fetch();
+    recordList: RecordItem[] = recodeListModel.fetch();
     record: RecordItem = {tags: [], notes: '', type: '-', amount: 0};
 
     onUpdateTags(value: string[]) {
@@ -52,14 +51,14 @@
     // }
 
     saveRecord() {
-      const recordCopy: RecordItem = model.clone(this.record);
+      const recordCopy: RecordItem = recodeListModel.clone(this.record);
       recordCopy.createdAt = new Date();
       this.recordList.push(recordCopy);
     }
 
     @Watch('recordList')
     onRecordListChange() {
-      model.save(this.recordList);
+      recodeListModel.save(this.recordList);
     }
   }
 </script>
