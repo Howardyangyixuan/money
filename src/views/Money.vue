@@ -1,9 +1,8 @@
 <template>
   <div>
     <layout class-prefix="layout">
-      {{recordList}}
       <Tags :data-source.sync='tags' @update:value="onUpdateTags"/>
-      <Notes @update:value="onUpdateNotes"/>
+      <Notes file-name="备注" placeholder="请添加备注"  @update:value="onUpdateNotes"/>
       <!--      <Types :value='record.type' @update:value="onUpdateType"/>-->
       <Types :value.sync="record.type"/>
       <!--      <NumberPad @update:value="onUpdateAmount"/>-->
@@ -31,6 +30,7 @@
   )
   export default class Money extends Vue {
     name = 'Money';
+    tags: string[] = [];
     recordList: RecordItem[] = recodeListModel.fetch();
     record: RecordItem = {tags: [], notes: '', type: '-', amount: 0};
 

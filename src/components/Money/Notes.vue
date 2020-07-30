@@ -1,20 +1,22 @@
 <template>
   <div>
     <label class="notes">
-      <span class="name">备注</span>
+      <span class="name">{{this.fileName}}</span>
       <!--      <input type="text" :value='value' @input="value = $event.target.value" placeholder="请输入备注">-->
-      <input type="text" v-model="value">
+      <input type="text" v-model="value" :placeholder="this.placeholder">
     </label>
   </div>
 </template>
 
 <script lang="ts">
   import Vue from 'vue';
-  import {Component, Watch} from 'vue-property-decorator';
+  import {Component, Prop, Watch} from 'vue-property-decorator';
 
   @Component
   export default class Notes extends Vue {
     value = '';
+    @Prop(String) fileName!: string;
+    @Prop(String) placeholder?: string;
 
     @Watch('value')
     onValueChange(value: string) {
