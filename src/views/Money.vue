@@ -16,10 +16,10 @@
 <script lang="ts">
   import Vue from 'vue';
   import {Component, Watch} from 'vue-property-decorator';
-  import NumberPad from '@/components/Morney/NumberPad.vue';
-  import Tags from '@/components/Morney/Tags.vue';
-  import Notes from '@/components/Morney/Notes.vue';
-  import Types from '@/components/Morney/Types.vue';
+  import NumberPad from '@/components/Money/NumberPad.vue';
+  import Tags from '@/components/Money/Tags.vue';
+  import Notes from '@/components/Money/Notes.vue';
+  import Types from '@/components/Money/Types.vue';
   import recodeListModel from '@/models/recodeListModel';
 
   @Component(
