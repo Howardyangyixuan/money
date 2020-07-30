@@ -1,7 +1,6 @@
 <template>
   <div>
     <layout class-prefix="layout">
-      {{record}}
       <Tags :data-source.sync='tags' @update:value="onUpdateTags"/>
       <Notes @update:value="onUpdateNotes"/>
       <!--      <Types :value='record.type' @update:value="onUpdateType"/>-->
@@ -21,11 +20,21 @@
   import Notes from '@/components/Morney/Notes.vue';
   import Types from '@/components/Morney/Types.vue';
 
+  //数据迁移的思路
+  // const version = window.localStorage.getItem('version' || '0');
+  // if (version === '0.0.1') {
+  //   recordList.forEach(record => {
+  //     record.createdAt = new Date(2020, 0, 1);
+  //   });
+  //   window.localStorage.setItem('recordList', JSON.stringify(recordList));
+  // }
+  // window.localStorage.setItem('version', '0.0.2');
   type Record = {
     tags: string[];
     notes: string;
     type: string;
     amount: number;
+    createdAt?: Date;
   }
   @Component(
     {
@@ -37,7 +46,7 @@
   export default class Money extends Vue {
     name = 'Money';
     tags = ['衣', '食', '住', '行', 'piao'];
-    recordList: Record[] = [];
+    recordList: Record[] = JSON.parse(window.localStorage.getItem('recordList') || '[]');
     record: Record = {tags: [], notes: '', type: '-', amount: 0};
 
     onUpdateTags(value: string[]) {
@@ -57,9 +66,9 @@
     // }
 
     saveRecord() {
-      const recordCopy = JSON.parse(JSON.stringify(this.record))
+      const recordCopy: Record = JSON.parse(JSON.stringify(this.record));
+      recordCopy.createdAt = new Date();
       this.recordList.push(recordCopy);
-      console.log(recordCopy);
     }
 
     @Watch('recordList')
