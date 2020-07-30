@@ -20,7 +20,7 @@
   import FormItem from '@/components/Money/FormItem.vue';
   import Types from '@/components/Money/Types.vue';
   import recodeListModel from '@/models/recodeListModel';
-
+  import tagListModel from '@/models/tagListModel';
   @Component(
     {
       components: {
@@ -29,9 +29,9 @@
     }
   )
   export default class Money extends Vue {
-    name = 'Money';
-    tags: string[] = [];
-    recordList: RecordItem[] = recodeListModel.fetch();
+    name = 'Money'
+    tags: Tags[]= tagListModel.fetch()
+    recordList: RecordItem[] = recodeListModel.fetch()
     record: RecordItem = {tags: [], notes: '', type: '-', amount: 0};
 
     onUpdateTags(value: string[]) {

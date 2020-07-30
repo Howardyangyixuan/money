@@ -14,7 +14,7 @@
 
   @Component
   export default class FormItem extends Vue {
-    value = '';
+    @Prop({default: ''}) readonly value!: string;
     @Prop(String) fileName!: string;
     @Prop(String) placeholder?: string;
 
