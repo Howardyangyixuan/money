@@ -20,16 +20,8 @@
   import Tags from '@/components/Morney/Tags.vue';
   import Notes from '@/components/Morney/Notes.vue';
   import Types from '@/components/Morney/Types.vue';
+  import model from '@/model';
 
-  const model = require('@/model.js').default
-  console.log(model);
-  type Record = {
-    tags: string[];
-    notes: string;
-    type: string;
-    amount: number;
-    createdAt?: Date;
-  }
   @Component(
     {
       components: {
@@ -40,8 +32,8 @@
   export default class Money extends Vue {
     name = 'Money';
     tags = ['衣', '食', '住', '行', 'piao'];
-    recordList: Record[] = model.fetch();
-    record: Record = {tags: [], notes: '', type: '-', amount: 0};
+    recordList: RecordItem[] = model.fetch();
+    record: RecordItem = {tags: [], notes: '', type: '-', amount: 0};
 
     onUpdateTags(value: string[]) {
       this.record.tags = value;
@@ -60,14 +52,14 @@
     // }
 
     saveRecord() {
-      const recordCopy: Record = JSON.parse(JSON.stringify(this.record));
+      const recordCopy: RecordItem = model.clone(this.record);
       recordCopy.createdAt = new Date();
       this.recordList.push(recordCopy);
     }
 
     @Watch('recordList')
     onRecordListChange() {
-      window.localStorage.setItem('recordList', JSON.stringify(this.recordList));
+      model.save(this.recordList);
     }
   }
 </script>
