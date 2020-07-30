@@ -1,6 +1,7 @@
 <template>
   <div>
     <layout class-prefix="layout">
+      {{recordList}}
       <Tags :data-source.sync='tags' @update:value="onUpdateTags"/>
       <Notes @update:value="onUpdateNotes"/>
       <!--      <Types :value='record.type' @update:value="onUpdateType"/>-->
@@ -20,15 +21,8 @@
   import Notes from '@/components/Morney/Notes.vue';
   import Types from '@/components/Morney/Types.vue';
 
-  //数据迁移的思路
-  // const version = window.localStorage.getItem('version' || '0');
-  // if (version === '0.0.1') {
-  //   recordList.forEach(record => {
-  //     record.createdAt = new Date(2020, 0, 1);
-  //   });
-  //   window.localStorage.setItem('recordList', JSON.stringify(recordList));
-  // }
-  // window.localStorage.setItem('version', '0.0.2');
+  const model = require('@/model.js').default
+  console.log(model);
   type Record = {
     tags: string[];
     notes: string;
@@ -46,7 +40,7 @@
   export default class Money extends Vue {
     name = 'Money';
     tags = ['衣', '食', '住', '行', 'piao'];
-    recordList: Record[] = JSON.parse(window.localStorage.getItem('recordList') || '[]');
+    recordList: Record[] = model.fetch();
     record: Record = {tags: [], notes: '', type: '-', amount: 0};
 
     onUpdateTags(value: string[]) {
