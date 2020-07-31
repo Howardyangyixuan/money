@@ -32,7 +32,7 @@
       if (name) {
         const message = tagsListModel.create(name);
         if (message === 'duplicated') {
-          window.alert('标签名重复了');
+          window.alert('标签名已存在，无需重复创建');
         } else if (message === 'success') {
           window.alert('添加成功');
         } else {

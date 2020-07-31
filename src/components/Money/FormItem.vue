@@ -2,8 +2,9 @@
   <div>
     <label class="notes">
       <span class="name">{{this.fileName}}</span>
-      <!--      <input type="text" :value='value' @input="value = $event.target.value" placeholder="请输入备注">-->
-      <input type="text" v-model="value" :placeholder="this.placeholder">
+      <input type="text" :value='value' @input="onValueChange($event.target.value)" :placeholder="this.placeholder">
+      <!--      <input type="text" :value='value' @input="value = $event.target.value" :placeholder="this.placeholder">-->
+      <!--      <input type="text" v-model="value" :placeholder="this.placeholder">-->
     </label>
   </div>
 </template>

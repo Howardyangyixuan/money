@@ -30,7 +30,7 @@
   )
   export default class Money extends Vue {
     name = 'Money'
-    tags: Tags[]= tagListModel.fetch()
+    tags: {id: string;name: string}[]= tagListModel.fetch()
     recordList: RecordItem[] = recodeListModel.fetch()
     record: RecordItem = {tags: [], notes: '', type: '-', amount: 0};
 
