@@ -44,18 +44,8 @@
       this.record.notes = value;
     }
 
-    // onUpdateType(value: string) {
-    //   this.record.type = value;
-    // }
-
-    // onUpdateAmount(value: string) {
-    //   this.record.amount = parseFloat(value);
-    // }
-
     saveRecord() {
-      const recordCopy: RecordItem = recodeListModel.clone(this.record);
-      recordCopy.createdAt = new Date();
-      this.recordList.push(recordCopy);
+      recodeListModel.create(this.record);
     }
 
     @Watch('recordList')
