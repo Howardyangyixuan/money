@@ -6,12 +6,15 @@ import store from './store';
 import Nav from '@/views/Nav.vue';
 import Layout from '@/views/Layout.vue';
 import Icon from '@/views/Icon.vue';
+import tagsListModel from '@/models/tagListModel';
 
 Vue.config.productionTip = false;
 
 Vue.component('Nav', Nav);
 Vue.component('Icon', Icon);
 Vue.component('Layout', Layout);
+
+window.tagList = tagsListModel.fetch();
 new Vue({
   router,
   store,

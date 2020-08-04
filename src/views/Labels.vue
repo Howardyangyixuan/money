@@ -7,7 +7,7 @@
       </router-link>
     </div>
     <div class="createTag-wrapper">
-      <Button class="createTag" @click.native="createTag"> 新建标签 </Button>
+      <Button class="createTag" @click.native="createTag"> 新建标签</Button>
     </div>
   </Layout>
 
@@ -19,13 +19,12 @@
   import tagsListModel from '@/models/tagListModel';
   import Button from '@/components/Button.vue';
 
-  tagsListModel.fetch();
   @Component({
     components: {Button}
   })
   export default class Labels extends Vue {
     name = 'Labels';
-    tags = tagsListModel.data;
+    tags = window.tagList;
 
     createTag() {
       const name = window.prompt('请输入标签名');
