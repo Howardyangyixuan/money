@@ -48,17 +48,14 @@ const store = new Vuex.Store({
     },
     updateTag(state, {id, name}) {
       const idList = state.tagList.map(item => item.id);
-      console.log(id, name);
       if (idList.indexOf(id) >= 0) {
         const names = state.tagList.map(item => item.name);
         if (names.indexOf(name) >= 0) {
-          return 'duplicated';
+          window.alert('标签名已存在，无需重复创建');
         } else {
           const tag = state.tagList.filter(item => item.id === id)[0];
           tag.name = name;
-          // tag.id = name;
           store.commit('saveTag');
-          return 'success';
         }
       } else {
         return 'not found';
@@ -72,11 +69,11 @@ const store = new Vuex.Store({
           break;
         }
       }
-      console.log(idx);
-      if (idx === -1) return false;
+      if (idx === -1) {
+        window.alert('删除失败');
+      }
       state.tagList.splice(idx, 1);
       store.commit('saveTag');
-      return true;
     }
 
   },
