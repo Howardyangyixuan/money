@@ -17,26 +17,22 @@
   import Vue from 'vue';
   import {Component} from 'vue-property-decorator';
   import Button from '@/components/Button.vue';
-  import store from '@/models/store';
 
   @Component({
-    components: {Button}
+    components: {Button},
+    computed: {
+      tags() {
+        return this.$store.state.tagList;
+      }
+    }
   })
   export default class Labels extends Vue {
     name = 'Labels';
-    tags = store.tagsListModel.data;
 
     createTag() {
       const name = window.prompt('请输入标签名');
       if (name) {
-        const message = store.tagsListModel.create(name);
-        if (message === 'duplicated') {
-          window.alert('标签名已存在，无需重复创建');
-        } else if (message === 'success') {
-          window.alert('添加成功');
-        } else {
-          window.alert('未知错误');
-        }
+        this.$store.commit('createTag', name);
       } else {
         window.alert('输入不能为空，请重新输入');
       }

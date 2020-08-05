@@ -28,7 +28,7 @@
       },
       computed: {
         data() {
-          return this.$store.state.data;
+          return this.$store.state.recordList;
         }
       }
     }
@@ -42,7 +42,7 @@
     }
 
     saveRecord() {
-      this.$store.commit('create', this.record);
+      this.$store.commit('createRecord', this.record);
     }
 
 

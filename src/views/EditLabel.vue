@@ -22,21 +22,21 @@
 <script lang="ts">
   import Vue from 'vue';
   import {Component} from 'vue-property-decorator';
-  import store from '@/models/store';
   import FormItem from '@/components/Money/FormItem.vue';
   import Button from '@/components/Button.vue';
 
   @Component({
     components: {Button, FormItem}
+
   })
   export default class EditLabel extends Vue {
     tag?: Tag = undefined;
 
     created() {
       const id = this.$route.params.id;
-      store.tagsListModel.fetch();
-      const tags = store.tagsListModel.data;
-      const tag = tags.filter(t => t.id === id)[0];
+      this.$store.commit('fetchTags');
+      const tags = this.$store.state.tagList;
+      const tag = tags.filter((t: { id: string }) => t.id === id)[0];
       if (tag) {
         this.tag = tag;
       } else {
@@ -46,24 +46,24 @@
     }
 
     update(name: string) {
-      if (this.tag)
-        store.tagsListModel.update(this.tag.id, name);
+      if (this.tag) {
+        const id = this.tag.id;
+        this.$store.commit('updateTag', {id, name});
+      }
     }
 
     remove() {
-      console.log('hi');
-      if (this.tag)
-        store.tagsListModel.remove(this.tag.id);
+      if (this.tag) this.$store.commit('removeTag', this.tag.id);
       this.$router.replace('/labels');
     }
 
     goBack() {
       this.$router.replace('/labels');
+
     }
-
   }
-</script>
 
+</script>
 <style lang="scss" scoped>
   @import "~@/assets/style/helper.scss";
 
