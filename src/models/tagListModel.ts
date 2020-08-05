@@ -52,5 +52,6 @@ const tagsListModel: TagListModel = {
     return true;
   }
 };
+tagsListModel.fetch();
 export default tagsListModel;
 

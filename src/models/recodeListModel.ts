@@ -1,4 +1,4 @@
-import clone from '@/models/clone';
+import clone from '@/lib/clone';
 
 const localStorageName = 'recordList';
 const recodeListModel = {
@@ -16,5 +16,5 @@ const recodeListModel = {
     window.localStorage.setItem(localStorageName, JSON.stringify(this.data));
   }
 };
-
+recodeListModel.fetch()
 export default recodeListModel;
