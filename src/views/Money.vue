@@ -1,6 +1,6 @@
 <template>
   <div>
-    {{recordList}}
+    {{data}}
     <layout class-prefix="layout">
       <Tags/>
       <FormItem file-name="备注" placeholder="请添加备注" @update:value="onUpdateNotes"/>
@@ -15,42 +15,37 @@
 
 <script lang="ts">
   import Vue from 'vue';
-  import {Component, Watch} from 'vue-property-decorator';
+  import {Component} from 'vue-property-decorator';
   import NumberPad from '@/components/Money/NumberPad.vue';
   import Tags from '@/components/Money/Tags.vue';
   import FormItem from '@/components/Money/FormItem.vue';
   import Types from '@/components/Money/Types.vue';
-  import store from '@/models/store';
 
   @Component(
     {
       components: {
         Types, FormItem, Tags, NumberPad,
       },
+      computed: {
+        data() {
+          return this.$store.state.data;
+        }
+      }
     }
   )
   export default class Money extends Vue {
     name = 'Money';
-    tags: { id: string; name: string }[] = store.tagsListModel.fetch();
-    recordList: RecordItem[] = store.recodeListModel.fetch();
     record: RecordItem = {tags: [], notes: '', type: '-', amount: 0};
-
-    onUpdateTags(value: string[]) {
-      this.record.tags = value;
-    }
 
     onUpdateNotes(value: string) {
       this.record.notes = value;
     }
 
     saveRecord() {
-      store.recodeListModel.create(this.record);
+      this.$store.commit('create', this.record);
     }
 
-    @Watch('recordList')
-    onRecordListChange() {
-      store.recodeListModel.save();
-    }
+
   }
 </script>
 
