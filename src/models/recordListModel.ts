@@ -1,7 +1,7 @@
 import clone from '@/lib/clone';
 
 const localStorageName = 'recordList';
-const recodeListModel = {
+const recordListModel = {
   data: [] as RecordItem[],
   create(record: RecordItem) {
     const recordCopy: RecordItem = clone(record);
@@ -16,5 +16,5 @@ const recodeListModel = {
     window.localStorage.setItem(localStorageName, JSON.stringify(this.data));
   }
 };
-recodeListModel.fetch()
-export default recodeListModel;
+recordListModel.fetch()
+export default recordListModel;

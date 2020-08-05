@@ -1,8 +1,8 @@
-import recodeListModel from '@/models/recodeListModel';
+import recordListModel from '@/models/recordListModel';
 import tagsListModel from '@/models/tagListModel';
 
 const store = {
-  recodeListModel,
+  recodeListModel: recordListModel,
   tagsListModel
 };
 export default store;

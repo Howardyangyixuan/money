@@ -2,7 +2,7 @@
   <div>
     {{recordList}}
     <layout class-prefix="layout">
-      <Tags :data-source.sync='tags' @update:value="onUpdateTags"/>
+      <Tags/>
       <FormItem file-name="备注" placeholder="请添加备注" @update:value="onUpdateNotes"/>
       <!--      <Types :value='record.type' @update:value="onUpdateType"/>-->
       <Types :value.sync="record.type"/>
@@ -20,8 +20,7 @@
   import Tags from '@/components/Money/Tags.vue';
   import FormItem from '@/components/Money/FormItem.vue';
   import Types from '@/components/Money/Types.vue';
-  import recodeListModel from '@/models/recodeListModel';
-  import tagListModel from '@/models/tagListModel';
+  import store from '@/models/store';
 
   @Component(
     {
@@ -32,8 +31,8 @@
   )
   export default class Money extends Vue {
     name = 'Money';
-    tags: { id: string; name: string }[] = tagListModel.fetch();
-    recordList: RecordItem[] = recodeListModel.fetch();
+    tags: { id: string; name: string }[] = store.tagsListModel.fetch();
+    recordList: RecordItem[] = store.recodeListModel.fetch();
     record: RecordItem = {tags: [], notes: '', type: '-', amount: 0};
 
     onUpdateTags(value: string[]) {
@@ -45,12 +44,12 @@
     }
 
     saveRecord() {
-      recodeListModel.create(this.record);
+      store.recodeListModel.create(this.record);
     }
 
     @Watch('recordList')
     onRecordListChange() {
-      recodeListModel.save();
+      store.recodeListModel.save();
     }
   }
 </script>
