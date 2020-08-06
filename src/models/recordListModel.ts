@@ -5,7 +5,7 @@ const recordListModel = {
   data: [] as RecordItem[],
   createTag(record: RecordItem) {
     const recordCopy: RecordItem = clone(record);
-    recordCopy.createdAt = new Date();
+    recordCopy.createdAt = new Date().toISOString();
     this.data.push(recordCopy);
     this.saveTag();
   },

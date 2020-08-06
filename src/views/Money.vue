@@ -1,8 +1,7 @@
 <template>
   <div>
-    {{data}}
     <layout class-prefix="layout">
-      <Tags/>
+      <Tags :value.sync="record.tags"/>
       <FormItem file-name="备注" placeholder="请添加备注" @update:value="onUpdateNotes"/>
       <!--      <Types :value='record.type' @update:value="onUpdateType"/>-->
       <Types :value.sync="record.type"/>
