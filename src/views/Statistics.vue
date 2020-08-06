@@ -4,8 +4,8 @@
     <Tabs class-prefix="interval" :data-source="intervals" :value.sync="interval.value"/>
     <div>
       <ol>
-        <li v-for="(group,idx) in result" :key="idx">
-          <h3 class="title">{{group.title}}</h3>
+        <li v-for="group in groupList" :key="group.title">
+          <h3 class="title"><span>{{beautify(group.title)}}</span><span>总计：¥{{group.total}}</span></h3>
           <ol>
             <li class="record" v-for="item in group.items" :key="item.id">
               <span> {{tagString(item.tags)}} </span>
@@ -25,7 +25,10 @@
   import {Component} from 'vue-property-decorator';
   import Vue from 'vue';
   import Tabs from '@/components/Tabs.vue';
+  import dayjs from 'dayjs';
+  import clone from '@/lib/clone';
 
+  console.log(dayjs().format());
   @Component({
     components: {Tabs, Types},
   })
@@ -36,6 +39,22 @@
     types = [{text: '支出', value: '-'}, {text: '收入', value: '+'}];
     intervals = [{text: '按天', value: 'day'}, {text: '按月', value: 'mouth'}, {text: '按年', value: 'year'}];
 
+    beautify(title: string) {
+      const time = dayjs(title);
+      const now = dayjs();
+      if (time.isSame(now, 'day')) {
+        return '今天';
+      } else if (time.isSame(dayjs(now).subtract(1, 'day'), 'day')) {
+        return '昨天';
+      } else if (time.isSame(dayjs(now).subtract(2, 'day'), 'day')) {
+        return '前天';
+      } else if (time.isSame(dayjs(now), 'year')) {
+        return time.format('M月D日');
+      } else {
+        return time.format('YYYY年M月D日');
+      }
+    }
+
     tagString(tags: string[]) {
       return tags.length === 0 ? '无' : tags.join();
     }
@@ -44,17 +63,26 @@
       return this.$store.state.recordList;
     }
 
-    get result() {
+    get groupList() {
       const {recordList} = this;
-      type HashTableValue = { title: string; items: RecordItem[] }
-      const hashTable: { [key: string]: HashTableValue } = {};
-      for (let i = 0; i < recordList.length; i++) {
-        const [date, time] = (recordList[i].createdAt.split('T'));
-        hashTable[date] = hashTable[date] || {title: date, items: []};
-        hashTable[date].items.push(recordList[i]);
+      if (recordList.length === 0) return [];
+      const newList = clone(recordList).filter((r: RecordItem) => r.type === this.record.type).sort((a: RecordItem, b: RecordItem) => dayjs(b.createdAt).valueOf() - dayjs(a.createdAt).valueOf());
+
+      const result = [{title: newList[0].createdAt, items: [newList[0]], total: newList[0].amount}];
+      let total = 0;
+      for (let i = 1; i < newList.length; i++) {
+        const cur = newList[i];
+        const now = dayjs(cur.createdAt);
+        const last = dayjs(newList[i - 1].createdAt);
+        total += cur.amount;
+        if (now.isSame(last, 'day')) {
+          result[result.length - 1].items.push(newList[i]);
+          result[result.length - 1].total += newList[i].amount;
+        } else {
+          result.push({title: newList[i].createdAt, items: [newList[i]], total: newList[i].amount});
+        }
       }
-      console.log(hashTable);
-      return hashTable;
+      return result;
     }
   }
 </script>
