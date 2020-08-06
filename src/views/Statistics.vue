@@ -24,6 +24,10 @@
 </script>
 
 <style lang="scss" scoped>
+  ::v-deep li.interval-item {
+    height: 40px;
+  }
+
   ::v-deep .type-item, {
     background: white;
 
