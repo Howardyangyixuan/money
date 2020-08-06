@@ -43,6 +43,15 @@ const store = new Vuex.Store({
       window.alert('添加成功');
       return 'success';
     },
+    initTag(state) {
+      if(state.tagList.length!==0)return;
+      const tags = ['衣', '食', '住', '行'];
+      for (let i = 0; i < tags.length; i++) {
+        const id = createId().toString();
+        state.tagList.push({id: id, name: tags[i]});
+        store.commit('saveTag');
+      }
+    },
     saveTag(state) {
       window.localStorage.setItem(localStorageNameTagList, JSON.stringify(state.tagList));
     },
@@ -82,4 +91,5 @@ const store = new Vuex.Store({
 });
 store.commit('fetchRecord');
 store.commit('fetchTags');
+store.commit('initTag');
 export default store;

@@ -3,7 +3,7 @@
     <Tabs class-prefix="type" :data-source="types" :value.sync="record.type"/>
     <Tabs class-prefix="interval" :data-source="intervals" :value.sync="interval.value"/>
     <div>
-      <ol>
+      <ol v-if="groupList.length>0">
         <li v-for="group in groupList" :key="group.title">
           <h3 class="title"><span>{{beautify(group.title)}}</span><span>总计：¥{{group.total}}</span></h3>
           <ol>
@@ -12,10 +12,10 @@
               <span class="notes">{{item.notes}}</span>
               <span class="amount">¥{{item.amount}}</span>
             </li>
-
           </ol>
         </li>
       </ol>
+      <div v-else class="noResult">尚未添加相关记录</div>
     </div>
   </Layout>
 </template>
@@ -67,7 +67,7 @@
       const {recordList} = this;
       if (recordList.length === 0) return [];
       const newList = clone(recordList).filter((r: RecordItem) => r.type === this.record.type).sort((a: RecordItem, b: RecordItem) => dayjs(b.createdAt).valueOf() - dayjs(a.createdAt).valueOf());
-
+      if (newList.length === 0) return [];
       const result = [{title: newList[0].createdAt, items: [newList[0]], total: newList[0].amount}];
       let total = 0;
       for (let i = 1; i < newList.length; i++) {
@@ -88,6 +88,9 @@
 </script>
 
 <style lang="scss" scoped>
+  .noResult{
+    padding:16px;
+  }
   %item {
     padding: 8px 16px;
     line-height: 24px;

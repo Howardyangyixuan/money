@@ -5,7 +5,7 @@ import router from './router';
 import Nav from '@/views/Nav.vue';
 import Layout from '@/views/Layout.vue';
 import Icon from '@/views/Icon.vue';
-import store from './store/index'
+import store from './store/index';
 
 Vue.config.productionTip = false;
 
@@ -18,3 +18,10 @@ new Vue({
   store,
   render: h => h(App)
 }).$mount('#app');
+
+window.onload = function () {
+  setTimeout(function () {
+    window.scrollTo(0, 200);
+  }, 0);
+
+};

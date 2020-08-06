@@ -19,6 +19,3 @@ type TagListModel = {
   remove: (name: string) => void;
 }
 
-interface Window {
-  tagList: Tag[];
-}
