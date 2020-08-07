@@ -1,7 +1,7 @@
 <template>
   <Layout>
     <Tabs class-prefix="type" :data-source="types" :value.sync="record.type"/>
-    <Tabs class-prefix="interval" :data-source="intervals" :value.sync="interval.value"/>
+<!--    <Tabs class-prefix="interval" :data-source="intervals" :value.sync="interval.value"/>-->
     <div>
       <ol v-if="groupList.length>0">
         <li v-for="group in groupList" :key="group.title">
